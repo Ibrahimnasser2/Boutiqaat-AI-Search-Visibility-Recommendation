@@ -101,9 +101,28 @@ copy .env.example .env
 uvicorn app.main:app --reload --port 8000
 ```
 
-Open **http://localhost:8000**
+Open **http://localhost:8000** for the built-in dashboard (full workflow, no Node.js required).
 
-> A React frontend is also included in `frontend/` (requires Node.js). The built-in dashboard at `:8000` provides the full experience.
+### Frontend (React + Vite)
+
+Start the backend first (step above), then in a second terminal:
+
+```bash
+cd frontend
+copy .env.example .env
+npm install
+npm run dev
+```
+
+Open **http://localhost:5173**
+
+The Vite app proxies `/api` to `http://localhost:8000`. Optional `.env`:
+
+```env
+VITE_API_URL=http://localhost:8000
+```
+
+> Use either the built-in dashboard (`:8000`) or the React app (`:5173`) — both talk to the same API.
 
 ## Using the Application
 
