@@ -39,6 +39,7 @@ class AIRunCreate(BaseModel):
 class AIRunResponse(BaseModel):
     id: int
     query_id: int
+    query_text: str = ""
     provider: str
     model: str
     timestamp: datetime

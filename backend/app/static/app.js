@@ -158,9 +158,9 @@ function renderRuns(runs) {
     .slice(0, 15)
     .map(
       (r) =>
-        `<button data-run="${r.id}" class="w-full flex justify-between border rounded-lg px-4 py-3 hover:bg-violet-50 text-left">
-      <span class="text-sm">Run #${r.id} · Query ${r.query_id}</span>
-      <span class="text-xs text-violet-600">View details →</span>
+        `<button data-run="${r.id}" class="w-full flex justify-between gap-4 border rounded-lg px-4 py-3 hover:bg-violet-50 text-left">
+      <span class="text-sm font-medium flex-1">${r.query_text || "Query #" + r.query_id}</span>
+      <span class="text-xs text-violet-600 whitespace-nowrap">View analysis →</span>
     </button>`
     )
     .join("");

@@ -90,6 +90,7 @@ def _run_response(run: models.AIRun) -> AIRunResponse:
     return AIRunResponse(
         id=run.id,
         query_id=run.query_id,
+        query_text=run.query.text if run.query else "",
         provider=run.provider,
         model=run.model,
         timestamp=run.timestamp,
