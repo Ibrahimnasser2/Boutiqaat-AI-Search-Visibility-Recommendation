@@ -1,0 +1,15 @@
+metric,value
+mention_rate,74.29
+recommendation_rate,48.57
+visibility_score,52.43
+average_position,1.71
+top3_rate,48.57
+source_coverage,82.35
+competitor_Sephora_rec_rate,71.43
+competitor_iHerb_rec_rate,45.71
+competitor_Amazon_rec_rate,42.86
+competitor_Noon_rec_rate,34.29
+competitor_YesStyle_rec_rate,20.0
+competitor_Namshi_rec_rate,17.14
+competitor_Faces_rec_rate,11.43
+competitor_Nice One_rec_rate,8.57

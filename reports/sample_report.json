@@ -1,0 +1,298 @@
+{
+  "generated_at": "2026-08-23T17:18:11.500780",
+  "title": "Boutiqaat AI Search Visibility Report",
+  "methodology": "This report measures observable AI-search visibility under controlled queries. It does NOT reverse-engineer proprietary ranking algorithms. Observations (mention rates, rankings) are distinguished from inferences (opportunity explanations).",
+  "executive_summary": {
+    "total_queries_analyzed": 140,
+    "mention_rate_pct": 74.29,
+    "recommendation_rate_pct": 48.57,
+    "visibility_score_summary": 52.43,
+    "average_position": 1.71,
+    "top3_rate_pct": 48.57
+  },
+  "overall_visibility": {
+    "total_queries": 35,
+    "total_runs": 140,
+    "mention_rate": 74.29,
+    "recommendation_rate": 48.57,
+    "average_position": 1.71,
+    "top3_rate": 48.57,
+    "visibility_score": 52.43,
+    "source_coverage": 82.35
+  },
+  "visibility_by_intent": [
+    {
+      "intent": "comparison",
+      "query_count": 16,
+      "mention_rate": 75.0,
+      "recommendation_rate": 0.0,
+      "visibility_score": 15.0
+    },
+    {
+      "intent": "discovery",
+      "query_count": 52,
+      "mention_rate": 76.92,
+      "recommendation_rate": 61.54,
+      "visibility_score": 62.31
+    },
+    {
+      "intent": "local",
+      "query_count": 12,
+      "mention_rate": 66.67,
+      "recommendation_rate": 66.67,
+      "visibility_score": 66.67
+    },
+    {
+      "intent": "product_specific",
+      "query_count": 24,
+      "mention_rate": 66.67,
+      "recommendation_rate": 50.0,
+      "visibility_score": 53.33
+    },
+    {
+      "intent": "transactional",
+      "query_count": 36,
+      "mention_rate": 77.78,
+      "recommendation_rate": 44.44,
+      "visibility_score": 49.44
+    }
+  ],
+  "competitor_comparison": [
+    {
+      "name": "Sephora",
+      "mention_count": 100,
+      "recommendation_count": 100,
+      "mention_rate": 71.43,
+      "recommendation_rate": 71.43,
+      "average_position": 1.16,
+      "top3_rate": 71.43
+    },
+    {
+      "name": "iHerb",
+      "mention_count": 64,
+      "recommendation_count": 64,
+      "mention_rate": 45.71,
+      "recommendation_rate": 45.71,
+      "average_position": 3.38,
+      "top3_rate": 28.57
+    },
+    {
+      "name": "Amazon",
+      "mention_count": 60,
+      "recommendation_count": 60,
+      "mention_rate": 42.86,
+      "recommendation_rate": 42.86,
+      "average_position": 1.8,
+      "top3_rate": 42.86
+    },
+    {
+      "name": "Noon",
+      "mention_count": 48,
+      "recommendation_count": 48,
+      "mention_rate": 34.29,
+      "recommendation_rate": 34.29,
+      "average_position": 2.5,
+      "top3_rate": 25.71
+    },
+    {
+      "name": "YesStyle",
+      "mention_count": 28,
+      "recommendation_count": 28,
+      "mention_rate": 20.0,
+      "recommendation_rate": 20.0,
+      "average_position": 2.0,
+      "top3_rate": 20.0
+    },
+    {
+      "name": "Namshi",
+      "mention_count": 24,
+      "recommendation_count": 24,
+      "mention_rate": 17.14,
+      "recommendation_rate": 17.14,
+      "average_position": 3.0,
+      "top3_rate": 17.14
+    },
+    {
+      "name": "Faces",
+      "mention_count": 16,
+      "recommendation_count": 16,
+      "mention_rate": 11.43,
+      "recommendation_rate": 11.43,
+      "average_position": 3.0,
+      "top3_rate": 11.43
+    },
+    {
+      "name": "Nice One",
+      "mention_count": 12,
+      "recommendation_count": 12,
+      "mention_rate": 8.57,
+      "recommendation_rate": 8.57,
+      "average_position": 2.0,
+      "top3_rate": 8.57
+    }
+  ],
+  "source_analysis": {
+    "source_coverage": 82.35,
+    "first_party_coverage": 56,
+    "third_party_coverage": 0,
+    "competitor_source_dominance": [
+      {
+        "domain": "sephora.ae",
+        "count": 60
+      },
+      {
+        "domain": "yesstyle.com",
+        "count": 28
+      },
+      {
+        "domain": "namshi.com",
+        "count": 24
+      },
+      {
+        "domain": "sephora.com",
+        "count": 24
+      },
+      {
+        "domain": "amazon.sa",
+        "count": 12
+      }
+    ]
+  },
+  "top_opportunities": [
+    {
+      "severity": "high",
+      "title": "Competitor-heavy recommendation landscape",
+      "category": "competitor_dominance",
+      "explanation": "Observed signal: 4 competitors actively recommended.",
+      "recommendation": "Differentiate on GCC-specific assortment, Arabic content, and local brand partnerships.",
+      "evidence": "Competitors: Sephora, Amazon, Namshi, iHerb"
+    },
+    {
+      "severity": "high",
+      "title": "Potential geographic relevance gap",
+      "category": "geographic_relevance_gap",
+      "explanation": "Observed signal: Geo-specific query but Boutiqaat not surfaced.",
+      "recommendation": "Increase geo-targeted content and third-party GCC retail listicles mentioning Boutiqaat.",
+      "evidence": "Geographic intent detected without Boutiqaat presence."
+    },
+    {
+      "severity": "high",
+      "title": "Boutiqaat absent from AI recommendation set",
+      "category": "weak_topical_authority",
+      "explanation": "Observed signal: Boutiqaat did not appear in this AI-generated answer for a relevant beauty retail query.",
+      "recommendation": "Strengthen topical authority content around this query theme (GCC beauty/skincare retail).",
+      "evidence": "Query: 'Where to buy dermatologist recommended skincare online GCC?' \u2014 zero mention in response."
+    },
+    {
+      "severity": "high",
+      "title": "No third-party sources supporting Boutiqaat",
+      "category": "insufficient_third_party_coverage",
+      "explanation": "Observed signal: Recommendation lacks editorial/review sources citing Boutiqaat.",
+      "recommendation": "Pursue authoritative third-party coverage (editorial, reviews, GCC retail guides).",
+      "evidence": "Only first-party or no Boutiqaat sources in response."
+    },
+    {
+      "severity": "medium",
+      "title": "Missing source citations for Boutiqaat",
+      "category": "insufficient_source_evidence",
+      "explanation": "Observed signal: Boutiqaat referenced without supporting URL citations.",
+      "recommendation": "Ensure crawlable, citable pages exist for key product/category queries.",
+      "evidence": "No Boutiqaat URLs in source list."
+    },
+    {
+      "severity": "medium",
+      "title": "Mentioned but not recommended",
+      "category": "poor_query_intent_alignment",
+      "explanation": "Observed signal: Boutiqaat appears in passing but is not in the active recommendation list.",
+      "recommendation": "Align product/category landing pages with transactional query intent; pursue comparison content.",
+      "evidence": "Mention-only context detected \u2014 not ranked as purchase destination."
+    },
+    {
+      "severity": "medium",
+      "title": "Missing source citations for Boutiqaat",
+      "category": "insufficient_source_evidence",
+      "explanation": "Observed signal: Boutiqaat referenced without supporting URL citations.",
+      "recommendation": "Ensure crawlable, citable pages exist for key product/category queries.",
+      "evidence": "No Boutiqaat URLs in source list."
+    },
+    {
+      "severity": "medium",
+      "title": "Mentioned but not recommended",
+      "category": "poor_query_intent_alignment",
+      "explanation": "Observed signal: Boutiqaat appears in passing but is not in the active recommendation list.",
+      "recommendation": "Align product/category landing pages with transactional query intent; pursue comparison content.",
+      "evidence": "Mention-only context detected \u2014 not ranked as purchase destination."
+    },
+    {
+      "severity": "medium",
+      "title": "Product-specific query \u2014 weak Boutiqaat visibility",
+      "category": "weak_product_information",
+      "explanation": "Observed signal: Product/brand-specific query did not surface Boutiqaat.",
+      "recommendation": "Enhance product detail pages and structured data for key K-beauty SKUs.",
+      "evidence": "Product-specific query: 'Best places to buy sunscreen online in Middle East'"
+    },
+    {
+      "severity": "medium",
+      "title": "Missing source citations for Boutiqaat",
+      "category": "insufficient_source_evidence",
+      "explanation": "Observed signal: Boutiqaat referenced without supporting URL citations.",
+      "recommendation": "Ensure crawlable, citable pages exist for key product/category queries.",
+      "evidence": "No Boutiqaat URLs in source list."
+    },
+    {
+      "severity": "medium",
+      "title": "Mentioned but not recommended",
+      "category": "poor_query_intent_alignment",
+      "explanation": "Observed signal: Boutiqaat appears in passing but is not in the active recommendation list.",
+      "recommendation": "Align product/category landing pages with transactional query intent; pursue comparison content.",
+      "evidence": "Mention-only context detected \u2014 not ranked as purchase destination."
+    },
+    {
+      "severity": "high",
+      "title": "No third-party sources supporting Boutiqaat",
+      "category": "insufficient_third_party_coverage",
+      "explanation": "Observed signal: Recommendation lacks editorial/review sources citing Boutiqaat.",
+      "recommendation": "Pursue authoritative third-party coverage (editorial, reviews, GCC retail guides).",
+      "evidence": "Only first-party or no Boutiqaat sources in response."
+    },
+    {
+      "severity": "high",
+      "title": "No third-party sources supporting Boutiqaat",
+      "category": "insufficient_third_party_coverage",
+      "explanation": "Observed signal: Recommendation lacks editorial/review sources citing Boutiqaat.",
+      "recommendation": "Pursue authoritative third-party coverage (editorial, reviews, GCC retail guides).",
+      "evidence": "Only first-party or no Boutiqaat sources in response."
+    },
+    {
+      "severity": "medium",
+      "title": "Missing source citations for Boutiqaat",
+      "category": "insufficient_source_evidence",
+      "explanation": "Observed signal: Boutiqaat referenced without supporting URL citations.",
+      "recommendation": "Ensure crawlable, citable pages exist for key product/category queries.",
+      "evidence": "No Boutiqaat URLs in source list."
+    },
+    {
+      "severity": "medium",
+      "title": "Mentioned but not recommended",
+      "category": "poor_query_intent_alignment",
+      "explanation": "Observed signal: Boutiqaat appears in passing but is not in the active recommendation list.",
+      "recommendation": "Align product/category landing pages with transactional query intent; pursue comparison content.",
+      "evidence": "Mention-only context detected \u2014 not ranked as purchase destination."
+    }
+  ],
+  "limitations": [
+    "LLM responses are non-deterministic (except mock mode).",
+    "Limited query set \u2014 not exhaustive of all customer questions.",
+    "Single provider in initial release; ChatGPT/Perplexity/Google may differ.",
+    "No access to proprietary ranking algorithms.",
+    "Source availability varies by provider.",
+    "Correlation does not imply causation for opportunity signals."
+  ],
+  "next_steps": [
+    "Expand query set across intents and geographies.",
+    "Add multi-provider comparison (OpenAI, Perplexity API).",
+    "Schedule recurring monitoring runs.",
+    "Track visibility trends over time.",
+    "Prioritize high-severity opportunities for content/PR actions."
+  ]
+}

@@ -1,0 +1,36 @@
+text,intent,category,geography
+What are the best skincare websites?,discovery,skincare,GCC
+What are the best beauty shopping websites?,discovery,beauty,GCC
+What are the best online beauty stores in the Middle East?,discovery,beauty,Middle East
+What are the best skincare retailers in the Middle East?,discovery,skincare,Middle East
+Where can I buy Korean skincare online?,transactional,korean_beauty,GCC
+Where can I buy beauty products in Saudi Arabia?,transactional,beauty,Saudi Arabia
+Where can I buy skincare products in UAE?,transactional,skincare,UAE
+Where can I buy makeup online in Kuwait?,transactional,makeup,Kuwait
+Where can I buy COSRX products in Saudi Arabia?,product_specific,korean_beauty,Saudi Arabia
+Where can I buy Korean sunscreen in GCC?,product_specific,korean_beauty,GCC
+Where can I buy Laneige products online?,product_specific,korean_beauty,GCC
+Where can I buy beauty products in Qatar?,transactional,beauty,Qatar
+Where can I buy K-beauty serums in Dubai?,product_specific,korean_beauty,UAE
+Boutiqaat vs Sephora,comparison,beauty,GCC
+What are the best alternatives to Sephora in the Middle East?,comparison,beauty,Middle East
+Which online beauty retailer is best in GCC?,comparison,beauty,GCC
+Best place to buy skincare in Riyadh,local,skincare,Saudi Arabia
+Best beauty store in Dubai Mall area,local,beauty,UAE
+Where to buy authentic Korean cosmetics in Kuwait?,transactional,korean_beauty,Kuwait
+Top rated online makeup stores GCC,discovery,makeup,GCC
+What websites sell premium skincare in Saudi?,discovery,skincare,Saudi Arabia
+Best online stores for halal beauty products,discovery,beauty,GCC
+Where can I buy The Ordinary in UAE?,product_specific,skincare,UAE
+Recommended beauty retailers for GCC customers,discovery,beauty,GCC
+Where to shop for celebrity beauty brands in Middle East?,discovery,beauty,Middle East
+Best Korean beauty retailers shipping to Saudi Arabia,discovery,korean_beauty,Saudi Arabia
+Online stores with fastest beauty delivery in UAE,transactional,beauty,UAE
+Compare Namshi vs Boutiqaat for beauty products,comparison,beauty,GCC
+Where can I buy Innisfree products in GCC?,product_specific,korean_beauty,GCC
+What are the top skincare e-commerce sites in Kuwait?,discovery,skincare,Kuwait
+Best places to buy sunscreen online in Middle East,transactional,skincare,Middle East
+Where can I buy affordable K-beauty in Saudi?,transactional,korean_beauty,Saudi Arabia
+Which beauty website has best Arabic support in GCC?,discovery,beauty,GCC
+Top makeup shopping apps in UAE,local,makeup,UAE
+Where to buy dermatologist recommended skincare online GCC?,discovery,skincare,GCC

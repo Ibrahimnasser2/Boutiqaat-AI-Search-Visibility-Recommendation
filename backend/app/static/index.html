@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Search Visibility Analyzer — Boutiqaat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <header class="border-b bg-white">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div>
+        <h1 class="text-xl font-bold text-violet-700">AI Search Visibility Analyzer</h1>
+        <p class="text-sm text-slate-500">Boutiqaat · Observable AI-search visibility</p>
+      </div>
+      <div class="flex gap-3">
+        <span id="mockBadge" class="hidden rounded-full bg-violet-50 px-3 py-1 text-xs text-violet-600 font-medium">Offline Mode</span>
+        <button id="runBtn" class="rounded-lg bg-violet-600 text-white px-4 py-2 text-sm font-medium hover:bg-violet-700">Run Full Analysis</button>
+        <button id="reportBtn" class="rounded-lg border px-4 py-2 text-sm hover:bg-slate-50">Export Report</button>
+      </div>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <div id="error" class="hidden mb-4 p-4 bg-red-50 text-red-700 rounded-lg border border-red-200"></div>
+    <div id="empty" class="rounded-xl border border-dashed p-16 text-center bg-white">
+      <h2 class="text-lg font-semibold">No analysis data yet</h2>
+      <p class="mt-2 text-slate-500">Click "Run Full Analysis" to load customer queries and analyze Boutiqaat visibility.</p>
+    </div>
+    <div id="dashboard" class="hidden">
+      <div id="metrics" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+      <div class="grid lg:grid-cols-2 gap-6 mt-8">
+        <div class="bg-white rounded-xl p-6 shadow-sm border">
+          <h2 class="font-semibold mb-4">Visibility by Intent</h2>
+          <canvas id="intentChart" height="200"></canvas>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border">
+          <h2 class="font-semibold mb-4">Competitor Comparison</h2>
+          <div id="competitors" class="overflow-x-auto text-sm"></div>
+        </div>
+      </div>
+      <div class="bg-white rounded-xl p-6 shadow-sm border mt-8">
+        <h2 class="font-semibold mb-4">Opportunities</h2>
+        <div id="opportunities" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+      <div class="bg-white rounded-xl p-6 shadow-sm border mt-8">
+        <h2 class="font-semibold mb-4">Query Runs</h2>
+        <div id="runs" class="space-y-2"></div>
+      </div>
+    </div>
+    <div id="detail" class="hidden">
+      <button id="backBtn" class="text-violet-600 text-sm hover:underline">← Back</button>
+      <div id="detailContent" class="mt-4 space-y-4"></div>
+    </div>
+  </main>
+  <script>
+    const API = '';
+    let intentChart = null;
+
+    async function api(path, opts) {
+      const r = await fetch(API + path, { headers: { 'Content-Type': 'application/json' }, ...opts });
+      if (!r.ok) throw new Error(await r.text());
+      return r.json();
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('error');
+      el.textContent = msg;
+      el.classList.remove('hidden');
+    }
+
+    function severityClass(s) {
+      return { high: 'bg-red-100 text-red-700', medium: 'bg-amber-100 text-amber-700', low: 'bg-green-100 text-green-700' }[s] || 'bg-slate-100';
+    }
+
+    function renderMetrics(o) {
+      const items = [
+        ['Total Queries', o.total_queries], ['Mention Rate', o.mention_rate + '%'],
+        ['Recommendation Rate', o.recommendation_rate + '%'], ['Visibility Score', o.visibility_score],
+        ['Avg Position', o.average_position ?? 'N/A'], ['Top-3 Rate', o.top3_rate + '%'],
+        ['Source Coverage', o.source_coverage + '%'], ['AI Runs', o.total_runs],
+      ];
+      document.getElementById('metrics').innerHTML = items.map(([l,v]) =>
+        `<div class="bg-white rounded-xl p-5 border shadow-sm"><p class="text-sm text-slate-500">${l}</p><p class="text-2xl font-semibold text-violet-600 mt-1">${v}</p></div>`
+      ).join('');
+    }
+
+    function renderCompetitors(comps) {
+      const rows = comps.slice(0,8).map(c => `<tr class="border-b"><td class="py-2 font-medium">${c.name}</td><td>${c.mention_rate}%</td><td>${c.recommendation_rate}%</td><td>${c.average_position ?? '—'}</td><td>${c.top3_rate}%</td></tr>`).join('');
+      document.getElementById('competitors').innerHTML = `<table class="w-full"><thead><tr class="text-slate-500 text-left"><th class="pb-2">Company</th><th>Mention</th><th>Rec</th><th>Pos</th><th>Top-3</th></tr></thead><tbody>${rows}</tbody></table>`;
+    }
+
+    function renderIntentChart(intents) {
+      const ctx = document.getElementById('intentChart').getContext('2d');
+      if (intentChart) intentChart.destroy();
+      intentChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: intents.map(i => i.intent),
+          datasets: [
+            { label: 'Mention %', data: intents.map(i => i.mention_rate), backgroundColor: '#a78bfa' },
+            { label: 'Rec %', data: intents.map(i => i.recommendation_rate), backgroundColor: '#6d28d9' },
+          ]
+        },
+        options: { responsive: true, scales: { y: { beginAtZero: true, max: 100 } } }
+      });
+    }
+
+    function renderOpportunities(opps) {
+      document.getElementById('opportunities').innerHTML = opps.slice(0,9).map(o => `
+        <div class="border rounded-lg p-4">
+          <div class="flex justify-between gap-2"><h3 class="font-medium text-sm">${o.title}</h3>
+          <span class="text-xs px-2 py-0.5 rounded-full ${severityClass(o.severity)}">${o.severity}</span></div>
+          <p class="text-xs text-slate-500 mt-2">${o.explanation.slice(0,120)}…</p>
+          <p class="text-xs text-violet-600 mt-1">${o.recommendation}</p>
+          <button onclick="showDetail(${o.run_id})" class="text-xs text-violet-500 mt-2 hover:underline">View query →</button>
+        </div>`).join('');
+    }
+
+    function renderRuns(runs) {
+      document.getElementById('runs').innerHTML = runs.slice(0,15).map(r =>
+        `<button onclick="showDetail(${r.id})" class="w-full flex justify-between border rounded-lg px-4 py-3 hover:bg-violet-50 text-left">
+          <span class="text-sm">Run #${r.id}</span><span class="text-xs text-violet-600">View →</span></button>`
+      ).join('');
+    }
+
+    async function loadDashboard() {
+      const [overview, intents, competitors, opportunities, runs, health] = await Promise.all([
+        api('/api/analysis/overview'), api('/api/analysis/intents'), api('/api/analysis/competitors'),
+        api('/api/analysis/opportunities'), api('/api/runs'), api('/api/health'),
+      ]);
+      if (overview.total_runs === 0) return;
+      document.getElementById('empty').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+      document.getElementById('detail').classList.add('hidden');
+      if (health.mock_mode) document.getElementById('mockBadge').classList.remove('hidden');
+      renderMetrics(overview);
+      renderIntentChart(intents);
+      renderCompetitors(competitors);
+      renderOpportunities(opportunities);
+      renderRuns(runs);
+    }
+
+    async function showDetail(runId) {
+      const d = await api('/api/analysis/runs/' + runId);
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('detail').classList.remove('hidden');
+      const v = d.visibility;
+      document.getElementById('detailContent').innerHTML = `
+        <h1 class="text-lg font-bold">${d.query_text}</h1>
+        <p class="text-sm text-slate-500">${d.provider} · ${d.model}</p>
+        <div class="grid md:grid-cols-4 gap-4">
+          ${[['Mentioned', v.boutiqaat_mentioned?'Yes':'No'],['Recommended', v.boutiqaat_recommended?'Yes':'No'],['Position', v.boutiqaat_position??'N/A'],['Score', v.visibility_score]].map(([l,val]) =>
+            `<div class="bg-white border rounded-xl p-4"><p class="text-xs text-slate-500">${l}</p><p class="text-xl font-semibold">${val}</p></div>`).join('')}
+        </div>
+        <div class="bg-white border rounded-xl p-6"><h2 class="font-semibold">AI Answer</h2><pre class="mt-3 text-sm bg-slate-50 p-4 rounded-lg whitespace-pre-wrap">${d.raw_answer}</pre></div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-white border rounded-xl p-6"><h2 class="font-semibold">Competitors</h2>
+            ${d.competitors.map(c=>`<p class="text-sm py-1 border-b">${c.position}. ${c.name}</p>`).join('')||'<p class="text-slate-400 text-sm">None</p>'}</div>
+          <div class="bg-white border rounded-xl p-6"><h2 class="font-semibold">Sources</h2>
+            ${d.sources.map(s=>`<p class="text-sm py-1"><a class="text-violet-600" href="${s.url}" target="_blank">${s.title||s.domain}</a> ${s.supports_boutiqaat?'<span class="text-xs bg-violet-50 text-violet-600 px-1 rounded">Boutiqaat</span>':''}</p>`).join('')||'<p class="text-slate-400 text-sm">None</p>'}</div>
+        </div>
+        <div class="bg-white border rounded-xl p-6"><h2 class="font-semibold">Opportunities</h2>
+          ${d.opportunities.map(o=>`<div class="border rounded p-4 mt-2"><strong>${o.title}</strong> <span class="text-xs ${severityClass(o.severity)} px-2 py-0.5 rounded-full">${o.severity}</span><p class="text-sm mt-1">${o.explanation}</p><p class="text-sm text-violet-600 mt-1">${o.recommendation}</p></div>`).join('')}</div>`;
+    }
+
+    document.getElementById('runBtn').onclick = async () => {
+      document.getElementById('runBtn').disabled = true;
+      document.getElementById('runBtn').textContent = 'Running…';
+      try { await api('/api/demo/run-full', { method: 'POST' }); await loadDashboard(); }
+      catch(e) { showError(e.message); }
+      document.getElementById('runBtn').disabled = false;
+      document.getElementById('runBtn').textContent = 'Run Full Analysis';
+    };
+    document.getElementById('reportBtn').onclick = async () => {
+      await api('/api/reports/sample');
+      window.open('/api/reports/sample/html', '_blank');
+    };
+    document.getElementById('backBtn').onclick = () => loadDashboard();
+    loadDashboard().catch(() => {});
+  </script>
+</body>
+</html>
