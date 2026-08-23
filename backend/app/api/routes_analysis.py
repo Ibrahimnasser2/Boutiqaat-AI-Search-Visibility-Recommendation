@@ -73,6 +73,19 @@ def run_full_analysis(db: Session = Depends(get_db)):
     }
 
 
+@router.post("/analysis/reset")
+def reset_analysis(db: Session = Depends(get_db)):
+    """Clear runs and related analysis data for a fresh demo."""
+    db.query(models.Opportunity).delete()
+    db.query(models.Source).delete()
+    db.query(models.Competitor).delete()
+    db.query(models.VisibilityAnalysis).delete()
+    db.query(models.AIRun).delete()
+    db.query(models.Query).delete()
+    db.commit()
+    return {"message": "Reset complete", "queries": 0, "runs": 0}
+
+
 def _run_response(run: models.AIRun) -> AIRunResponse:
     return AIRunResponse(
         id=run.id,

@@ -13,7 +13,7 @@ Customers increasingly ask AI assistants *"Which companies would you recommend f
 This full-stack analyzer:
 
 1. Loads realistic GCC beauty/skincare customer queries
-2. Runs them through an LLM provider (mock or OpenAI)
+2. Runs them through an LLM provider (offline mock or OpenAI)
 3. Extracts structured recommendations, rankings, and sources
 4. Computes visibility metrics and competitor comparisons
 5. Generates opportunity signals with clear observation vs. inference language
@@ -88,9 +88,9 @@ Aggregate score = mean of per-run scores. This is a **custom diagnostic metric**
 ### Prerequisites
 
 - Python 3.11+
-- Node.js 18+
+- Node.js 18+ (optional, for the React frontend)
 
-### Backend (includes built-in dashboard at http://localhost:8000)
+### Backend (built-in dashboard at http://localhost:8000)
 
 ```bash
 cd backend
@@ -101,17 +101,29 @@ copy .env.example .env
 uvicorn app.main:app --reload --port 8000
 ```
 
-Open **http://localhost:8000** → Click **Run Full Analysis**.
+Open **http://localhost:8000**
 
 > A React frontend is also included in `frontend/` (requires Node.js). The built-in dashboard at `:8000` provides the full experience.
 
-### One-Command Seed + Report
+## Using the Application
 
-```bash
-python scripts/seed_demo.py
+Follow these steps in the dashboard:
+
+1. **Load Customer Queries** — click *Step 1* to load the GCC beauty/skincare question set, then scroll the list
+2. **Run AI Analysis** — click *Step 2* and wait until analysis completes
+3. **View Metrics** — review mention rate, recommendation rate, visibility score, intent chart, competitors, and opportunities
+4. **Open a Query** — click any query run to inspect the full AI answer and Boutiqaat ranking
+5. **Export Report** — click *Step 5* to download HTML, JSON, and CSV for stakeholders
+
+### Offline configuration
+
+Default `.env`:
+
+```env
+MOCK_MODE=true
 ```
 
-Generates `reports/sample_report.json`, `.csv`, and `.html`.
+No API key is required. Deterministic sample answers are used for reproducible analysis.
 
 ## Running With OpenAI
 
@@ -121,7 +133,7 @@ OPENAI_API_KEY=sk-...
 OPENAI_MODEL=gpt-4o-mini
 ```
 
-Restart backend. Responses will be non-deterministic.
+Restart the backend. Responses will be non-deterministic.
 
 ## Testing
 
@@ -148,30 +160,21 @@ All tests run without an API key using deterministic logic.
 
 Full OpenAPI docs: **http://localhost:8000/docs**
 
-## Video Walkthrough
+## Sample Results
 
-A screen recording of the application workflow is at `reports/demo_recording.webm`.
+A sample report is included at `reports/sample_report.html`.
 
-To record a new version:
-
-```bash
-cd backend && uvicorn app.main:app --port 8000
-python scripts/record_demo.py
-```
-
-See `DEMO.md` for usage instructions.
-
-After running an analysis, typical results include:
+After a full analysis run, typical offline-mode results include:
 
 - **~74% mention rate**
 - **~49% recommendation rate**
 - Top competitors: Sephora, Amazon, Noon, iHerb
 
-See `reports/sample_report.html` for a full example.
+A short product walkthrough video is available at `reports/demo_recording.webm`.
 
 ## Limitations
 
-- LLM nondeterminism (except mock mode)
+- LLM nondeterminism (except offline mock mode)
 - Limited 34-query sample set
 - Single provider in initial release
 - No access to proprietary AI ranking internals
@@ -194,11 +197,9 @@ See `reports/sample_report.html` for a full example.
 ## Project Structure
 
 ```
-├── backend/app/          # API, services, models
-├── frontend/src/         # React dashboard
-├── data/sample_queries.csv
-├── reports/              # Generated reports
-├── scripts/seed_demo.py
-├── DEMO.md               # User guide
+├── backend/app/              # API, services, models, dashboard
+├── frontend/src/             # React frontend
+├── data/sample_queries.csv   # Customer query set
+├── reports/                  # Sample report and walkthrough video
 └── README.md
 ```
